@@ -7,11 +7,11 @@ using AuthDemo.Services.Interfaces;
 
 namespace AuthDemo.Services.Implementations
 {
-    public class AuthService(IUserRepository repo, JwtService jwt) : IAuthService
+    public class AuthService(IUserRepository repo, JwtService jwt,IEmailService emailService) : IAuthService
     {
         private readonly IUserRepository _repo = repo;
         private readonly JwtService _jwtService = jwt;
-
+        private readonly IEmailService _emailService = emailService;
         public async Task<AuthResponseDto> Login(LoginDto loginDto)
         {
             var user = await _repo.GetUserByEmailAsync(loginDto.Email);
@@ -32,6 +32,7 @@ namespace AuthDemo.Services.Implementations
                 Roles = user.UserRoles?.Select(ur => ur.Role.Name).ToList() ?? []
             });
 
+            await _emailService.SendEmailAsync("kelash.raisal@gmail.com","User Logged In","Thanks for Trustun US.");
             return new AuthResponseDto
             {
                 Id = user.Id,

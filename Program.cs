@@ -2,6 +2,7 @@ using AuthDemo.Common;
 using AuthDemo.Data;
 using AuthDemo.Helpers;
 using AuthDemo.Middleware;
+using AuthDemo.Models;
 using AuthDemo.Repositories.Implementations;
 using AuthDemo.Repositories.Interfaces;
 using AuthDemo.Services.Implementations;
@@ -34,6 +35,9 @@ builder.Services.Scan(scan => scan
 var jwtSettings = builder.Configuration.GetSection("Jwt");
 var secretKey = Encoding.UTF8.GetBytes(jwtSettings["Key"]!);
 
+//EmailSetting configurattion
+var emailSetting = builder.Configuration.GetSection("EmailSetting");
+builder.Services.Configure<EmailSetting>(emailSetting);
 // Authentication
 builder.Services.AddScoped<JwtService>(); //here we register the DI of jwt service
 builder.Services.AddAuthentication(options =>
