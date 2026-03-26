@@ -94,7 +94,6 @@ namespace AuthDemo.Repositories.Implementations
 
         public async Task<Category> UpdateCategoryAsync(Guid uid, Category category)
         {
-            Console.WriteLine(category);
             var affected = await _context.Categories
                   .Where(c => c.Uid == uid)
                   .ExecuteUpdateAsync(setters => setters

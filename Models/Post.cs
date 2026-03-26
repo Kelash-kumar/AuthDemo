@@ -6,7 +6,7 @@
         public int CategoryId { get; set; } 
         public string Title { get; set; } = string.Empty;
         public string Slug { get; set; } = string.Empty;
-        public string Excerpt { get; set; } = string.Empty;
+        public string Excerpt { get; set; } = string.Empty; 
         public string Content { get; set; } = string.Empty;
         public string FeaturedImage { get; set; } = string.Empty;
         public PostStatus Status { get; set; } = PostStatus.Draft;

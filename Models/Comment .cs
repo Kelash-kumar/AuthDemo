@@ -4,7 +4,7 @@
     {
         public int PostId { get; set; }
         public int? UserId { get; set; } // Nullable for guest comments
-        public int ParentId { get; set; } // For nested comments
+        public int? ParentId { get; set; } // For nested comments
 
         public string Body { get; set; } = string.Empty;
         public bool IsApproved { get; set; } = false;

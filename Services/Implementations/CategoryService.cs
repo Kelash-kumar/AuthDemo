@@ -17,7 +17,7 @@ namespace AuthDemo.Services.Implementations
             _slugService = slugService;
         }
 
-        public async Task<CategoryResponseDto> CreateCategoryAsync(CreateCategoryDto categoryRequestDto)
+        public async Task<CategoryResponseDto> CreateCategoryAsync(CategoryRequestDto categoryRequestDto)
         {
             var categoryName = categoryRequestDto.Name.Trim();
 
@@ -100,7 +100,7 @@ namespace AuthDemo.Services.Implementations
             };
         }
 
-        public async Task<CategoryResponseDto> UpdateCategoryAsync(Guid uid, UpdateCategoryDto dto)
+        public async Task<CategoryResponseDto> UpdateCategoryAsync(Guid uid, CategoryRequestDto dto)
         {
             var categoryName = dto.Name.Trim();
 
@@ -117,19 +117,19 @@ namespace AuthDemo.Services.Implementations
                 if (parentExist == null)
                     throw new NotFoundException($"Parent category with id {dto.ParentId.Value} not found.");
             }
-
-            var exists = await _categoryRepository.CategoryExistsAsync(categoryName, dto.ParentId, uid);
-            if (exists)
-                throw new ConflictException($"Category '{categoryName}' already exists.");
-
-            var existingSlugs = await _categoryRepository.GetAllCategorySlugAsync() ?? new List<string>();
-            var slug = _slugService.GenerateUnique(categoryName, existingSlugs);
+            if (categoryName != null)
+            {
+                var exists = await _categoryRepository.CategoryExistsAsync(categoryName, dto.ParentId, uid);
+                if (exists)
+                    throw new ConflictException($"Category '{categoryName}' already exists.");
+                var existingSlugs = await _categoryRepository.GetAllCategorySlugAsync() ?? new List<string>();
+                existCat.Name = categoryName ?? existCat.Name;
+                existCat.Slug = _slugService.GenerateUnique(categoryName, existingSlugs);
+            }
 
             // Update fields
-            existCat.Name = categoryName;
-            existCat.Slug = slug;
-            existCat.Description = dto.Description?.Trim();
-            existCat.ParentId = dto.ParentId; 
+            existCat.Description = dto.Description?.Trim() ?? existCat.Description;
+            existCat.ParentId = dto.ParentId ?? existCat.ParentId; 
 
             await _categoryRepository.SaveChnagesAsync();
 

@@ -32,7 +32,7 @@ namespace AuthDemo.Controllers
         //POST
         [HttpPost]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Create([FromBody] CreateCategoryDto createCategoryDto) {
+        public async Task<IActionResult> Create([FromBody] CategoryRequestDto createCategoryDto) {
             if (!ModelState.IsValid)
             {
                 var errors = ModelState
@@ -48,7 +48,8 @@ namespace AuthDemo.Controllers
         }
 
      [HttpGet("{uid}")]
-     public async Task<IActionResult> GetCategoryById([FromRoute] Guid uid) {
+     public async Task<IActionResult> GetCategoryById([FromRoute] Guid uid) 
+        {
             var category = await _categoryService.GetCategoryByIdAsync(uid);
             return ApiOk(category,"Category fetched successfully");
         }
@@ -60,7 +61,7 @@ namespace AuthDemo.Controllers
         }
 
      [HttpPut("{uid}")]
-     public async Task<IActionResult> Update([FromRoute] Guid uid, [FromBody] UpdateCategoryDto categoryRequestDto) {
+     public async Task<IActionResult> Update([FromRoute] Guid uid, [FromBody] CategoryRequestDto categoryRequestDto) {
 
             if (!ModelState.IsValid)
             {
