@@ -11,13 +11,13 @@ namespace AuthDemo.Repositories.Implementations
         private readonly ApplicationDbContext _context;
         public CommentRepository(ApplicationDbContext context)
         {
-            _context = context; 
+            _context = context;
         }
 
         public async Task<Comment> CreateCommentAsync(Comment comment)
         {
             var newComment = await _context.Comments.AddAsync(comment);
-            await _context.SaveChangesAsync(); 
+            await _context.SaveChangesAsync();
 
             return newComment.Entity;
         }
@@ -40,14 +40,14 @@ namespace AuthDemo.Repositories.Implementations
 
         public async Task<List<Comment>> GetCommentsByPostIdAsync(int postId)
         {
-            return  await _context.Comments
+            return await _context.Comments
                 .Where(c => c.PostId == postId)
                 .Include(c => c.User)
                 .OrderBy(c => c.CreatedAt)
                 .ToListAsync();
         }
 
-        public async Task<Comment> UpdateCommentAsync(Guid uid,Comment comment)
+        public async Task<Comment> UpdateCommentAsync(Guid uid, Comment comment)
         {
             var affected = await _context.Comments
                 .Where(c => c.Uid == uid)

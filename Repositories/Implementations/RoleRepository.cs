@@ -9,7 +9,7 @@ namespace AuthDemo.Repositories.Implementations
     public class RoleRepository(ApplicationDbContext context) : IRoleRepository
     {
         private readonly ApplicationDbContext _context = context;
-        public async Task<(List<Role>,int TotalRecords)> GetAllRolesAsync(
+        public async Task<(List<Role>, int TotalRecords)> GetAllRolesAsync(
              PaginationParams paginationParams,
             string? search = null,
             string? sortBy = "name",
@@ -61,7 +61,8 @@ namespace AuthDemo.Repositories.Implementations
                     .SetProperty(r => r.Description, role.Description)
                 );
 
-            if (affected == null) {
+            if (affected == null)
+            {
                 return null;
             }
 

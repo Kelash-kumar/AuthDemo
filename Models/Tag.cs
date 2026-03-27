@@ -1,6 +1,4 @@
-﻿using AuthDemo.Models;
-
-namespace AuthDemo.Models
+﻿namespace AuthDemo.Models
 {
     public class Tag : BaseEntity
     {

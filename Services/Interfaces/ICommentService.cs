@@ -1,5 +1,4 @@
-﻿using AuthDemo.DTOs.CategoryDtos;
-using AuthDemo.DTOs.CommentDtos;
+﻿using AuthDemo.DTOs.CommentDtos;
 
 namespace AuthDemo.Services.Interfaces
 {

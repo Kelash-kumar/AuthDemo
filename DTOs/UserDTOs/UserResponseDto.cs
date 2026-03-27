@@ -1,6 +1,4 @@
-﻿using AuthDemo.Models;
-
-namespace AuthDemo.DTOs.UserDTOs
+﻿namespace AuthDemo.DTOs.UserDTOs
 {
     public class UserResponseDto
     {

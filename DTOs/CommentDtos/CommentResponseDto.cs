@@ -1,12 +1,10 @@
-﻿using AuthDemo.DTOs.PostDtos;
-
-namespace AuthDemo.DTOs.CommentDtos
+﻿namespace AuthDemo.DTOs.CommentDtos
 {
     public class CommentResponseDto
     {
         public int Id { get; set; }
         public string Uid { get; set; } = string.Empty;
-        public int  PostId { get; set; }
+        public int PostId { get; set; }
         public int? UserId { get; set; }
         public string Body { get; set; } = string.Empty;
         public bool IsApproved { get; set; }

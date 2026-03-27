@@ -1,8 +1,8 @@
 ﻿using AuthDemo.DTOs.CommentDtos;
+using AuthDemo.Exceptions;
 using AuthDemo.Models;
 using AuthDemo.Repositories.Interfaces;
 using AuthDemo.Services.Interfaces;
-using AuthDemo.Exceptions;
 namespace AuthDemo.Services.Implementations
 {
     public class CommentService : ICommentService
@@ -65,7 +65,7 @@ namespace AuthDemo.Services.Implementations
 
             var updatedComment = await _commentRepository.UpdateCommentAsync(uid, comment);
 
-            if(updatedComment == null) throw new NotFoundException("comment not exist or Change not detected.");
+            if (updatedComment == null) throw new NotFoundException("comment not exist or Change not detected.");
 
             return MapCommentResponseDto(comment);
         }

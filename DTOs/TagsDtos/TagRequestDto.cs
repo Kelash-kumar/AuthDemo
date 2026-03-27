@@ -6,7 +6,7 @@ namespace AuthDemo.DTOs.TagsDtos
     {
         [Required, MaxLength(100)]
         public string Name { get; set; } = string.Empty;
-        
+
         public int? PostId { get; set; }
 
     }

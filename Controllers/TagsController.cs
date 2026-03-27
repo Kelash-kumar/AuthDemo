@@ -2,7 +2,6 @@
 using AuthDemo.Helpers;
 using AuthDemo.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AuthDemo.Controllers
@@ -24,8 +23,8 @@ namespace AuthDemo.Controllers
             [FromQuery] string? sortDirection = "asc"
             )
         {
-            var result =  await _tagService.GetAllTagssAsync(paginationParams, search, sortBy, sortDirection);
-         
+            var result = await _tagService.GetAllTagssAsync(paginationParams, search, sortBy, sortDirection);
+
             return ApiOk(result);
         }
 
@@ -34,7 +33,7 @@ namespace AuthDemo.Controllers
         public async Task<IActionResult> GetTagById([FromRoute] Guid uid)
         {
             var result = await _tagService.GetTagByIdAsync(uid);
-            return ApiOk(result,"Tags Fecthed Successfulyy.");
+            return ApiOk(result, "Tags Fecthed Successfulyy.");
         }
 
         [HttpGet("slug/{slug}")]
@@ -45,8 +44,9 @@ namespace AuthDemo.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles ="Admin")]
-        public async Task<IActionResult> Create([FromBody] TagRequestDto dto) {
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> Create([FromBody] TagRequestDto dto)
+        {
 
             if (!ModelState.IsValid)
             {
@@ -66,7 +66,8 @@ namespace AuthDemo.Controllers
 
         [HttpPut("{uid}")]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Update([FromRoute] Guid uid, [FromBody] TagRequestDto dto) {
+        public async Task<IActionResult> Update([FromRoute] Guid uid, [FromBody] TagRequestDto dto)
+        {
 
             if (!ModelState.IsValid)
             {
@@ -77,9 +78,9 @@ namespace AuthDemo.Controllers
                                 .ToList();
                 return ApiValidationError(errors);
             }
-            var result = await _tagService.UpdateTagAsync(uid, dto);  
+            var result = await _tagService.UpdateTagAsync(uid, dto);
 
-         return ApiOk(result,"Tag Updated Successfulyy.");
+            return ApiOk(result, "Tag Updated Successfulyy.");
         }
 
         [HttpDelete("{uid}")]

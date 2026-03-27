@@ -2,7 +2,6 @@
 using AuthDemo.Exceptions;
 using AuthDemo.Models;
 using AuthDemo.Services.Interfaces;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using System.Net;
 using System.Text.Json;
@@ -53,9 +52,9 @@ namespace AuthDemo.Middleware
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Unhandled exception: {Message}", ex.Message);
-                if (_settings.SendErrorEmail) 
-                { 
-                _ = SendErrorEmailAsync(context, ex);
+                if (_settings.SendErrorEmail)
+                {
+                    _ = SendErrorEmailAsync(context, ex);
                 }
                 await HandleExceptionAsync(context, ex);
             }

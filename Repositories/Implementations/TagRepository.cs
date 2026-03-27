@@ -16,8 +16,8 @@ namespace AuthDemo.Repositories.Implementations
 
         public async Task<Tag> CreateTagAsync(Tag tag)
         {
-         var newTag = await _context.Tags.AddAsync(tag);
-         return await Task.FromResult(newTag.Entity);
+            var newTag = await _context.Tags.AddAsync(tag);
+            return await Task.FromResult(newTag.Entity);
         }
 
         public async Task<Tag> GetTagByIdAsync(Guid uid)
@@ -43,7 +43,7 @@ namespace AuthDemo.Repositories.Implementations
                  .SetProperty(t => t.Name, tag.Name)
                 );
             if (affected == null) return null;
-            return await GetTagByIdAsync (uid);
+            return await GetTagByIdAsync(uid);
         }
         public async Task<bool> DeleteTagAsync(Guid uid)
         {
@@ -51,26 +51,27 @@ namespace AuthDemo.Repositories.Implementations
         }
 
         public async Task<(List<Tag>, int totalRecords)> GetAllTagsAsync(
-            PaginationParams paginationParams, 
-            string? search = null, 
-            string? sortBy = null, 
+            PaginationParams paginationParams,
+            string? search = null,
+            string? sortBy = null,
             string? sortDirection = "asc"
             )
         {
             var query = _context.Tags.AsQueryable();
             if (!string.IsNullOrEmpty(search))
             {
-                query = query.Where(t => 
-                t.Name.Contains(search,StringComparison.CurrentCultureIgnoreCase) ||
+                query = query.Where(t =>
+                t.Name.Contains(search, StringComparison.CurrentCultureIgnoreCase) ||
                 t.Slug.Contains(search, StringComparison.CurrentCultureIgnoreCase)
                 );
             }
 
             var isDesc = sortDirection?.ToLower() == "desc";
-            query = sortBy?.ToLower() switch {
-            "name" => isDesc ? query.OrderByDescending(t => t.Name) : query.OrderBy(t => t.Name),
-            "createdat" => isDesc ? query.OrderByDescending(t => t.CreatedAt) : query.OrderBy(t => t.CreatedAt),
-            _ => query.OrderBy(t => t.Id),
+            query = sortBy?.ToLower() switch
+            {
+                "name" => isDesc ? query.OrderByDescending(t => t.Name) : query.OrderBy(t => t.Name),
+                "createdat" => isDesc ? query.OrderByDescending(t => t.CreatedAt) : query.OrderBy(t => t.CreatedAt),
+                _ => query.OrderBy(t => t.Id),
             };
 
             var totalRecords = query.Count();

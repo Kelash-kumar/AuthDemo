@@ -1,8 +1,6 @@
 ﻿using AuthDemo.DTOs.PostDtos;
 using AuthDemo.Helpers;
-using AuthDemo.Services.Implementations;
 using AuthDemo.Services.Interfaces;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AuthDemo.Controllers
@@ -46,7 +44,7 @@ namespace AuthDemo.Controllers
 
             var result = await _postService.CreatePost(dto);
 
-            return ApiOk(result ,"Post Created Successfully");
+            return ApiOk(result, "Post Created Successfully");
         }
 
         [HttpGet("{uid}")]

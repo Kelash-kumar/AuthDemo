@@ -6,9 +6,9 @@ namespace AuthDemo.Repositories.Interfaces
     public interface ICommentRepository
     {
         Task<Comment> CreateCommentAsync(Comment comment);
-        Task<Comment> UpdateCommentAsync(Guid uid,Comment comment);
+        Task<Comment> UpdateCommentAsync(Guid uid, Comment comment);
         Task<Comment> GetCommentByIdAsync(Guid uid);
-        Task<(List<Comment>,int totalRecords)> GetCommentByIdAsync(
+        Task<(List<Comment>, int totalRecords)> GetCommentByIdAsync(
             PaginationParams paginationParams,
             string? search = null,
             string sortBy = "createdAt",

@@ -1,6 +1,4 @@
-﻿using AuthDemo.Models;
-
-namespace AuthDemo.DTOs.PostDtos
+﻿namespace AuthDemo.DTOs.PostDtos
 {
     public class UpdatePostDto : BasePostDto
     {

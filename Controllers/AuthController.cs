@@ -1,6 +1,5 @@
 ﻿using AuthDemo.DTOs.UserDTOs;
 using AuthDemo.Services.Interfaces;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AuthDemo.Controllers
@@ -14,18 +13,18 @@ namespace AuthDemo.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginDto loginDto)
         {
-            
+
             var result = await _authService.Login(loginDto);
             return ApiOk(result, "User Logged In Successfully.");
-          
+
         }
 
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] RegisterDto registerDto)
         {
-             var result = _authService.Register(registerDto);
+            var result = _authService.Register(registerDto);
             return ApiOk(result, "User Registered Successfully");
-           
+
         }
     }
 }

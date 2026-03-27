@@ -1,5 +1,4 @@
 ﻿using AuthDemo.DTOs.CategoryDtos;
-using AuthDemo.DTOs.UserDTOs;
 using AuthDemo.Helpers;
 
 namespace AuthDemo.Services.Interfaces

@@ -13,7 +13,7 @@ namespace AuthDemo.Repositories.Interfaces
         Task<List<int>> GetValidRoleIdsAsync(List<int> roleIds);
 
         Task<List<Role>> GetRolesByIdsAsync(List<int> roleIds);
-        Task<(List<User>,int TotalRecords)> GetAllUsers(
+        Task<(List<User>, int TotalRecords)> GetAllUsers(
              PaginationParams paginationParams,
              string? search = null,
              string? sortBy = "name",

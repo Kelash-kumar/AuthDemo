@@ -21,15 +21,15 @@ namespace AuthDemo.Controllers
             [FromQuery] string? sortDirection = "asc"
             )
         {
-                var result = await _roleService.GetAllRoles(paginationParams, search, sortBy, sortDirection);
-                return ApiOk(result,"Roles Fetched Successfully.");      
+            var result = await _roleService.GetAllRoles(paginationParams, search, sortBy, sortDirection);
+            return ApiOk(result, "Roles Fetched Successfully.");
         }
 
         [HttpGet("{uid}")]
         public async Task<IActionResult> GetRoleById([FromRoute] Guid uid)
         {
-                var result = await _roleService.GetRoleById(uid);
-                return ApiOk(result,"Roles Fetched Successfully.");
+            var result = await _roleService.GetRoleById(uid);
+            return ApiOk(result, "Roles Fetched Successfully.");
         }
 
         [Authorize(Roles = "Admin")]
@@ -47,7 +47,7 @@ namespace AuthDemo.Controllers
             }
 
             var result = await _roleService.Create(roleRequestDto);
-                return ApiCreated(result,"Role Created Successfulyy.");
+            return ApiCreated(result, "Role Created Successfulyy.");
         }
 
 
@@ -66,7 +66,7 @@ namespace AuthDemo.Controllers
             }
 
             var result = await _roleService.Update(uid, roleRequestDto);
-                return ApiOk(result,"Role Updated Successfully.");
+            return ApiOk(result, "Role Updated Successfully.");
         }
     }
 }

@@ -14,7 +14,7 @@ namespace AuthDemo.Data.Configurations
                 .WithMany(p => p.PostTags)
                 .HasForeignKey(pt => pt.PostId)
                 .OnDelete(DeleteBehavior.Cascade);
-            
+
             builder.HasOne(pt => pt.Tag)
                 .WithMany(t => t.PostTags)
                 .HasForeignKey(pt => pt.TagId)

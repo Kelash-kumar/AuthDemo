@@ -7,15 +7,15 @@ using AuthDemo.Services.Interfaces;
 
 namespace AuthDemo.Services.Implementations
 {
-    public class RoleService (IRoleRepository roleRepository) : IRoleService
+    public class RoleService(IRoleRepository roleRepository) : IRoleService
     {
         private readonly IRoleRepository _roleRepository = roleRepository;
 
         public async Task<RoleResponseDto> Create(RoleRequestDto roleRequestDto)
         {
-            var existingRole = await _roleRepository.GetRoleByNameAsync(roleRequestDto.Name); 
+            var existingRole = await _roleRepository.GetRoleByNameAsync(roleRequestDto.Name);
 
-            if(existingRole != null)
+            if (existingRole != null)
             {
                 throw new ConflictException($"Role with name '{roleRequestDto.Name}' already exists.");
             }
@@ -26,7 +26,7 @@ namespace AuthDemo.Services.Implementations
                 Name = roleRequestDto.Name,
                 Description = roleRequestDto.Description,
             };
-            
+
             await _roleRepository.CreateRoleAsync(role);
 
             var res = new RoleResponseDto
@@ -40,12 +40,12 @@ namespace AuthDemo.Services.Implementations
         }
 
         public async Task<PagedResult<RoleResponseDto>> GetAllRoles(
-            PaginationParams pagination, 
-            string? search, 
-            string? sortBy, 
+            PaginationParams pagination,
+            string? search,
+            string? sortBy,
             string? sortOrder)
         {
-            
+
             var (roles, totalRecords) = await _roleRepository.GetAllRolesAsync(pagination, search, sortBy, sortOrder);
 
             //Map role => DTOs
@@ -68,13 +68,13 @@ namespace AuthDemo.Services.Implementations
                 : role is null ? null : MapToRoleResponseDto(role);
         }
 
-        public async Task<RoleResponseDto> Update(Guid uid,RoleRequestDto roleRequestDto)
+        public async Task<RoleResponseDto> Update(Guid uid, RoleRequestDto roleRequestDto)
         {
             var updatedRole = await _roleRepository.UpdateRoleAsync(uid, new Role
-                {
-                    Name = roleRequestDto.Name,
-                    Description = roleRequestDto.Description
-             });
+            {
+                Name = roleRequestDto.Name,
+                Description = roleRequestDto.Description
+            });
 
             return updatedRole == null ? throw new NotFoundException($"Role with ID {uid} not found.") : MapToRoleResponseDto(updatedRole);
         }

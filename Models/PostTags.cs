@@ -2,12 +2,12 @@
 {
     public class PostTags
     {
-            public int PostId { get; set; }
-            public int TagId { get; set; }
+        public int PostId { get; set; }
+        public int TagId { get; set; }
 
-            // Navigation properties
-            public Post Post { get; set; } = null!;
-            public Tag Tag { get; set; } = null!;
-        }
+        // Navigation properties
+        public Post Post { get; set; } = null!;
+        public Tag Tag { get; set; } = null!;
+    }
 
 }

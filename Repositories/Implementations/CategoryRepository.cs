@@ -26,20 +26,21 @@ namespace AuthDemo.Repositories.Implementations
         public async Task<Category> CreateCategoryAsync(Category category)
         {
             var newCategory = await _context.Categories.AddAsync(category);
-            return await Task.FromResult(newCategory.Entity); 
+            return await Task.FromResult(newCategory.Entity);
         }
 
         public async Task<bool> DeleteCategoryAsync(Guid uid)
         {
-           return await _context.Categories.Where(c => c.Uid == uid)
-                .ExecuteDeleteAsync() > 0;
+            return await _context.Categories.Where(c => c.Uid == uid)
+                 .ExecuteDeleteAsync() > 0;
         }
 
         public async Task<(List<Category>, int TotalRecords)> GetAllCategoriesAsync(PaginationParams paginationParams, string? search = null, string? sortBy = "name", string? sortDirection = "asc")
         {
             var query = _context.Categories.AsQueryable();
 
-            if (!string.IsNullOrEmpty(search)) {
+            if (!string.IsNullOrEmpty(search))
+            {
                 query = query.Where(c =>
                  c.Name.Contains(search, StringComparison.CurrentCultureIgnoreCase) ||
                  c.Description.Contains(search, StringComparison.CurrentCultureIgnoreCase) ||
@@ -48,14 +49,14 @@ namespace AuthDemo.Repositories.Implementations
             }
 
             //sorting
-            var isDesc =  sortDirection?.ToLower() == "desc";
+            var isDesc = sortDirection?.ToLower() == "desc";
             query = sortBy?.ToLower() switch
             {
                 "createdat" => isDesc ? query.OrderByDescending(c => c.CreatedAt) : query.OrderBy(c => c.CreatedAt),
                 "slug" => isDesc ? query.OrderByDescending(c => c.Slug) : query.OrderBy(c => c.Slug),
                 "name" => isDesc ? query.OrderByDescending(c => c.Name) : query.OrderBy(c => c.Name),
                 _ => isDesc ? query.OrderByDescending(c => c.Id) : query.OrderBy(c => c.Id),
-                
+
             };
 
             var totalRecords = query.Count();
@@ -74,7 +75,7 @@ namespace AuthDemo.Repositories.Implementations
 
         public async Task<Category> GetCategoryByIdAsync(Guid uid)
         {
-           return await _context.Categories.FirstOrDefaultAsync(c => c.Uid == uid);
+            return await _context.Categories.FirstOrDefaultAsync(c => c.Uid == uid);
         }
 
         public async Task<Category> GetCategoryByPkAsync(int id)
@@ -102,9 +103,9 @@ namespace AuthDemo.Repositories.Implementations
                    .SetProperty(c => c.Slug, category.Slug)
                    .SetProperty(c => c.ParentId, category.ParentId)
                   );
-         if(affected == null) return null;
+            if (affected == null) return null;
 
-         return await GetCategoryByIdAsync(uid);
+            return await GetCategoryByIdAsync(uid);
         }
 
     }

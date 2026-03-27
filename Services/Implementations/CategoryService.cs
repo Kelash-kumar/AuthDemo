@@ -30,28 +30,28 @@ namespace AuthDemo.Services.Implementations
                 }
             }
 
-            var exists = await _categoryRepository.CategoryExistsAsync(categoryName, categoryRequestDto.ParentId,null);
+            var exists = await _categoryRepository.CategoryExistsAsync(categoryName, categoryRequestDto.ParentId, null);
 
             if (exists) throw new ConflictException($"Category '{categoryName}' already exists.");
 
             //Geneate slug from name
             var existingSlugs = await _categoryRepository.GetAllCategorySlugAsync() ?? new List<string>();
-                var slug = _slugService.GenerateUnique(categoryRequestDto.Name, existingSlugs);
+            var slug = _slugService.GenerateUnique(categoryRequestDto.Name, existingSlugs);
 
-                var category = new Category
-                {
-                    Name = categoryRequestDto.Name.Trim(),
-                    Slug = slug,
-                    Description = categoryRequestDto.Description.Trim(),
-                    ParentId = categoryRequestDto.ParentId
-                };
+            var category = new Category
+            {
+                Name = categoryRequestDto.Name.Trim(),
+                Slug = slug,
+                Description = categoryRequestDto.Description.Trim(),
+                ParentId = categoryRequestDto.ParentId
+            };
 
-                await _categoryRepository.CreateCategoryAsync(category);
-                await _categoryRepository.SaveChnagesAsync();
+            await _categoryRepository.CreateCategoryAsync(category);
+            await _categoryRepository.SaveChnagesAsync();
 
-               return MapToCategoryResponseDto(category);
+            return MapToCategoryResponseDto(category);
 
-            }
+        }
 
         public async Task<CategoryResponseDto> GetCategoryByIdAsync(Guid id)
         {
@@ -80,18 +80,18 @@ namespace AuthDemo.Services.Implementations
         }
 
         public async Task<PagedResult<CategoryResponseDto>> GetAllCategoriesAsync(
-            PaginationParams pagination, 
-            string? search = null, 
-            string? sortBy = "name", 
+            PaginationParams pagination,
+            string? search = null,
+            string? sortBy = "name",
             string? sortOrder = "asc"
             )
         {
-            var (categories,totalRecords) = await _categoryRepository.GetAllCategoriesAsync(pagination, search, sortBy, sortOrder);
+            var (categories, totalRecords) = await _categoryRepository.GetAllCategoriesAsync(pagination, search, sortBy, sortOrder);
 
             if (categories == null) throw new NotFoundException("Categories not found");
 
             var categoriesDtos = categories.Select(c => MapToCategoryResponseDto(c)).ToList();
-            return new PagedResult<CategoryResponseDto>  
+            return new PagedResult<CategoryResponseDto>
             {
                 Data = categoriesDtos,
                 TotalRecords = totalRecords,
@@ -129,7 +129,7 @@ namespace AuthDemo.Services.Implementations
 
             // Update fields
             existCat.Description = dto.Description?.Trim() ?? existCat.Description;
-            existCat.ParentId = dto.ParentId ?? existCat.ParentId; 
+            existCat.ParentId = dto.ParentId ?? existCat.ParentId;
 
             await _categoryRepository.SaveChnagesAsync();
 
@@ -139,7 +139,7 @@ namespace AuthDemo.Services.Implementations
         {
             var result = await _categoryRepository.DeleteCategoryAsync(uid);
 
-            if(result == true) return true;
+            if (result == true) return true;
 
             return false;
         }

@@ -6,7 +6,7 @@ namespace AuthDemo.Repositories.Interfaces
     public interface IPostRepository
     {
         Task<Post> CreatePost(Post post);
-        Task<(List<Post>,int totalRecords)> GetAllPostsAsync(
+        Task<(List<Post>, int totalRecords)> GetAllPostsAsync(
             PaginationParams paginationParams,
             string search,
             string sortBy,

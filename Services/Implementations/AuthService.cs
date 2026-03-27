@@ -7,7 +7,7 @@ using AuthDemo.Services.Interfaces;
 
 namespace AuthDemo.Services.Implementations
 {
-    public class AuthService(IUserRepository repo, JwtService jwt,IEmailService emailService) : IAuthService
+    public class AuthService(IUserRepository repo, JwtService jwt, IEmailService emailService) : IAuthService
     {
         private readonly IUserRepository _repo = repo;
         private readonly JwtService _jwtService = jwt;
@@ -32,7 +32,7 @@ namespace AuthDemo.Services.Implementations
                 Roles = user.UserRoles?.Select(ur => ur.Role.Name).ToList() ?? []
             });
 
-            await _emailService.SendEmailAsync("kelash.raisal@gmail.com","User Logged In","Thanks for Trustun US.");
+            await _emailService.SendEmailAsync("kelash.raisal@gmail.com", "User Logged In", "Thanks for Trustun US.");
             return new AuthResponseDto
             {
                 Id = user.Id,
@@ -48,12 +48,14 @@ namespace AuthDemo.Services.Implementations
 
         public async Task<AuthResponseDto> Register(RegisterDto registerDto)
         {
-           var user = _repo.GetUserByEmailAsync(registerDto.Email).Result;
-            if(user != null) {
+            var user = _repo.GetUserByEmailAsync(registerDto.Email).Result;
+            if (user != null)
+            {
                 throw new ConflictException("User already exists");
             }
 
-            if(registerDto.RolesIds == null || registerDto.RolesIds.Count == 0) {
+            if (registerDto.RolesIds == null || registerDto.RolesIds.Count == 0)
+            {
                 throw new ValidationException("At least one role must be selected");
             }
 
@@ -85,7 +87,7 @@ namespace AuthDemo.Services.Implementations
                 Id = newUser.Id,
                 Name = newUser.Name,
                 Email = newUser.Email,
-                Roles = roles.Select(r =>r.Name).ToList()
+                Roles = roles.Select(r => r.Name).ToList()
             });
 
             var response = new AuthResponseDto

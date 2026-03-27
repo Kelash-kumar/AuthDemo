@@ -1,5 +1,4 @@
 ﻿using AuthDemo.DTOs.PostDtos;
-using AuthDemo.DTOs.UserDTOs;
 using AuthDemo.Exceptions;
 using AuthDemo.Helpers;
 using AuthDemo.Models;
@@ -50,7 +49,6 @@ namespace AuthDemo.Services.Implementations
             var post = await _postRepository.GetPostByIdAsync(uid);
             if (post == null) throw new NotFoundException("Post Not Found");
 
-            Console.WriteLine($"POST :===> {post}"); // ✅ Fixed: use string interpolation
             return MapPostResponseDtos(post);
         }
 
@@ -88,13 +86,13 @@ namespace AuthDemo.Services.Implementations
                 FeaturedImage = post.FeaturedImage,
                 Status = post.Status.ToString(),
                 PublishedAt = post.PublishedAt,
-                Author = new AuthorDto  // ✅ Fixed: must use `new AuthorDto { }`
+                Author = new AuthorDto
                 {
                     Id = post.Author.Id,
                     Name = post.Author.Name,
                     Email = post.Author.Email,
                 },
-                Category = new CategoryDto  // ✅ Fixed: must use `new CategoryDto { }`
+                Category = new CategoryDto
                 {
                     Id = post.Category.Id,
                     Name = post.Category.Name,

@@ -1,5 +1,4 @@
-﻿using AuthDemo.Models;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace AuthDemo.Data
 {
@@ -12,8 +11,8 @@ namespace AuthDemo.Data
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
 
         }
-     
 
-}
+
+    }
 
 }

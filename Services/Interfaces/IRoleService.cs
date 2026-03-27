@@ -13,6 +13,6 @@ namespace AuthDemo.Services.Interfaces
             );
         Task<RoleResponseDto> GetRoleById(Guid uid);
         Task<RoleResponseDto> Create(RoleRequestDto roleRequestDto);
-        Task<RoleResponseDto> Update(Guid uid,RoleRequestDto roleRequestDto);
+        Task<RoleResponseDto> Update(Guid uid, RoleRequestDto roleRequestDto);
     }
 }

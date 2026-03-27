@@ -1,8 +1,8 @@
 ﻿using AuthDemo.Models;
 using AuthDemo.Services.Interfaces;
+using MailKit.Net.Smtp;
 using MailKit.Security;
 using Microsoft.Extensions.Options;
-using MailKit.Net.Smtp;
 using MimeKit;
 
 
@@ -15,7 +15,7 @@ namespace AuthDemo.Services.Implementations
         {
             _settings = settings.Value;
         }
-        
+
         public async Task SendEmailAsync(string to, string subject, string body)
         {
             await SendEmailAsync(new EmailRequest

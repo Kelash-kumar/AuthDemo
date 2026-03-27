@@ -1,5 +1,4 @@
-﻿using AuthDemo.DTOs.RoleDTOs;
-using AuthDemo.DTOs.TagsDtos;
+﻿using AuthDemo.DTOs.TagsDtos;
 using AuthDemo.Helpers;
 using AuthDemo.Models;
 using AuthDemo.Repositories.Interfaces;
@@ -40,17 +39,17 @@ namespace AuthDemo.Services.Implementations
 
         public async Task<bool> DeleteTagAsync(Guid id)
         {
-            return await _tagRepository.DeleteTagAsync(id); 
+            return await _tagRepository.DeleteTagAsync(id);
         }
 
         public async Task<PagedResult<TagResponseDto>> GetAllTagssAsync(
-            PaginationParams paginationParams, 
-            string? search = null, 
-            string? sortBy = "name", 
+            PaginationParams paginationParams,
+            string? search = null,
+            string? sortBy = "name",
             string? sortDirection = "asc"
             )
         {
-            var(tags,totalRecords) = await _tagRepository.GetAllTagsAsync(paginationParams,search,sortBy,sortDirection);
+            var (tags, totalRecords) = await _tagRepository.GetAllTagsAsync(paginationParams, search, sortBy, sortDirection);
             var tagDtos = tags.Select(t => MapTagResponseDto(t)).ToList();
 
             return new PagedResult<TagResponseDto>
@@ -81,9 +80,10 @@ namespace AuthDemo.Services.Implementations
             var existingSlugs = await _tagRepository.GetAllTagSlugAsync() ?? new List<string>();
             var slug = _slugService.GenerateUnique(dto.Name, existingSlugs);
 
-            var tag = new Tag { 
-            Name = dto.Name,
-            Slug = slug,
+            var tag = new Tag
+            {
+                Name = dto.Name,
+                Slug = slug,
             };
 
             var updatedTag = await _tagRepository.UpdateTagAsync(uid, tag);
@@ -91,17 +91,19 @@ namespace AuthDemo.Services.Implementations
             return MapTagResponseDto(updatedTag);
         }
 
-        private static TagResponseDto MapTagResponseDto(Tag tag) {
-         return new TagResponseDto {
-             Id =    tag.Id,
-             Uid =   tag.Uid,
-             Name =  tag.Name,
-             Slug =  tag.Slug,
-             CreatedAt = tag.CreatedAt,
-             UpdatedAt = tag.UpdatedAt
-         };
+        private static TagResponseDto MapTagResponseDto(Tag tag)
+        {
+            return new TagResponseDto
+            {
+                Id = tag.Id,
+                Uid = tag.Uid,
+                Name = tag.Name,
+                Slug = tag.Slug,
+                CreatedAt = tag.CreatedAt,
+                UpdatedAt = tag.UpdatedAt
+            };
         }
 
-        
+
     }
 }

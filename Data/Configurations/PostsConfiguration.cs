@@ -14,7 +14,7 @@ namespace AuthDemo.Data.Configurations
             builder.Property(p => p.Slug).IsRequired().HasMaxLength(200);
             builder.Property(p => p.Excerpt).HasMaxLength(500);
             builder.Property(p => p.Content).IsRequired();
-            
+
             builder.HasOne(p => p.Author)
                 .WithMany(u => u.Posts)
                 .HasForeignKey(p => p.AuthorId)

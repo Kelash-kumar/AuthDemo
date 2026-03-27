@@ -92,7 +92,7 @@ namespace AuthDemo.Repositories.Implementations
             return (users, totalRecords);
         }
 
-        public async Task<User> UpdateUserAsync(Guid uid,User user)
+        public async Task<User> UpdateUserAsync(Guid uid, User user)
         {
             var affected = await _context.Users
                 .Where(u => u.Uid == uid)
@@ -102,7 +102,7 @@ namespace AuthDemo.Repositories.Implementations
                     .SetProperty(u => u.Avatar, user.Avatar)
                 );
 
-            if(affected == 0)
+            if (affected == 0)
             {
                 return null;
             }

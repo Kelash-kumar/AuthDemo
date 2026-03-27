@@ -17,9 +17,9 @@ namespace AuthDemo.Repositories.Interfaces
         Task<List<string>> GetAllCategorySlugAsync();
         Task<Category> GetCategoryBySlugAsync(string slug);
         Task<Category> CreateCategoryAsync(Category category);
-        Task<Category> UpdateCategoryAsync(Guid uid,Category category);
+        Task<Category> UpdateCategoryAsync(Guid uid, Category category);
         Task<bool> DeleteCategoryAsync(Guid uid);
-        Task<bool> CategoryExistsAsync(string name, int? parentId,Guid? uid);
+        Task<bool> CategoryExistsAsync(string name, int? parentId, Guid? uid);
         Task SaveChnagesAsync();
 
     }

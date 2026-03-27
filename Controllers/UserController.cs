@@ -26,23 +26,23 @@ namespace AuthDemo.Controllers
             [FromQuery] string? sortDirection = "asc"
         )
         {
-                var result = await _userService.GetAllUsers(
-                    paginationParams, search, sortBy, sortDirection
-                );
+            var result = await _userService.GetAllUsers(
+                paginationParams, search, sortBy, sortDirection
+            );
 
-                return ApiOk( result ,"Users Fetched Successfully.");
+            return ApiOk(result, "Users Fetched Successfully.");
         }
 
 
-    [HttpGet("{uid}")]
-    public async Task<IActionResult> GetUserById([FromRoute] Guid uid)
-    {
+        [HttpGet("{uid}")]
+        public async Task<IActionResult> GetUserById([FromRoute] Guid uid)
+        {
             var result = await _userService.GetUserByIdAsync(uid);
-             return ApiOk(result, "User Fecthed Successfully");
-    }
+            return ApiOk(result, "User Fecthed Successfully");
+        }
 
-    [HttpPut("{uid}")]
-    [Authorize(Roles = "Admin")]
+        [HttpPut("{uid}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> UpdateUser(Guid uid, [FromBody] UserRequestDto userUpdateDto)
         {
             if (!ModelState.IsValid)
@@ -55,7 +55,7 @@ namespace AuthDemo.Controllers
                 return ApiValidationError(errors);
             }
             var result = await _userService.UpdateUserAsync(uid, userUpdateDto);
-                return ApiOk(result, "User updated Successfully");
-        } 
+            return ApiOk(result, "User updated Successfully");
+        }
     }
 }

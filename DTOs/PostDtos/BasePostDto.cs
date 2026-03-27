@@ -13,4 +13,3 @@
         public DateTime PublishedAt { get; set; }
     }
 }
-    

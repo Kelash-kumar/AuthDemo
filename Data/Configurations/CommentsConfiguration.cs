@@ -11,7 +11,7 @@ namespace AuthDemo.Data.Configurations
         {
             builder.HasKey(c => c.Id);
             builder.Property(c => c.Body).IsRequired();
-            
+
             builder.HasOne(c => c.Post)
                 .WithMany(p => p.Comments)
                 .HasForeignKey(c => c.PostId)

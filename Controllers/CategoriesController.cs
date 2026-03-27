@@ -32,7 +32,8 @@ namespace AuthDemo.Controllers
         //POST
         [HttpPost]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Create([FromBody] CategoryRequestDto createCategoryDto) {
+        public async Task<IActionResult> Create([FromBody] CategoryRequestDto createCategoryDto)
+        {
             if (!ModelState.IsValid)
             {
                 var errors = ModelState
@@ -44,24 +45,26 @@ namespace AuthDemo.Controllers
             }
 
             var category = await _categoryService.CreateCategoryAsync(createCategoryDto);
-            return ApiCreated(category,"Category created successfully");
+            return ApiCreated(category, "Category created successfully");
         }
 
-     [HttpGet("{uid}")]
-     public async Task<IActionResult> GetCategoryById([FromRoute] Guid uid) 
+        [HttpGet("{uid}")]
+        public async Task<IActionResult> GetCategoryById([FromRoute] Guid uid)
         {
             var category = await _categoryService.GetCategoryByIdAsync(uid);
-            return ApiOk(category,"Category fetched successfully");
+            return ApiOk(category, "Category fetched successfully");
         }
 
-     [HttpGet("slug/{slug}")]
-     public async Task<IActionResult> GetCategoryBySlug([FromRoute] string slug) {
+        [HttpGet("slug/{slug}")]
+        public async Task<IActionResult> GetCategoryBySlug([FromRoute] string slug)
+        {
             var category = await _categoryService.GetCategoryBySlugAsync(slug);
-            return ApiOk(category,"Category fetched successfully");
+            return ApiOk(category, "Category fetched successfully");
         }
 
-     [HttpPut("{uid}")]
-     public async Task<IActionResult> Update([FromRoute] Guid uid, [FromBody] CategoryRequestDto categoryRequestDto) {
+        [HttpPut("{uid}")]
+        public async Task<IActionResult> Update([FromRoute] Guid uid, [FromBody] CategoryRequestDto categoryRequestDto)
+        {
 
             if (!ModelState.IsValid)
             {
@@ -75,15 +78,16 @@ namespace AuthDemo.Controllers
 
             var category = await _categoryService.UpdateCategoryAsync(uid, categoryRequestDto);
             return ApiOk(category, "Category Updated Successfully");
-     }
+        }
 
 
-     [HttpDelete("{uid}")]
-     [Authorize(Roles ="Admin")]
-     public async Task<IActionResult> Delete([FromRoute] Guid uid) {
+        [HttpDelete("{uid}")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> Delete([FromRoute] Guid uid)
+        {
             await _categoryService.DeleteCategoryAsync(uid);
             return ApiOk("Category Deleted Sucessfully");
-     }
+        }
 
     }
 }

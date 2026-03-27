@@ -16,7 +16,7 @@
         // Navigation properties
         public Post Post { get; set; } = null!;
         public User? User { get; set; } // Nullable for guest comments
-        public  Comment? Parent { get; set; }
+        public Comment? Parent { get; set; }
         public ICollection<Comment> Replies { get; set; } = new List<Comment>();
     }
 }
